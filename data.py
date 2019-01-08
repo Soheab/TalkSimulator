@@ -12,5 +12,4 @@ class Bot(_Bot):
         if not self.is_ready():
             return
 
-        # Might be useful for later
         await self.process_commands(msg)
