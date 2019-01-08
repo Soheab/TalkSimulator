@@ -1,7 +1,8 @@
 {
   "startMessage": "Message to start with",
-  "channel": CHANNELID:int,
-  "admins": [USERID:int],
+  "channel": ChannelID:int,
+  "admins": [UserIDs:int],
+  "mods": [UserIDs:int],
   "API": {
     "user": "cleverbot.io user",
     "key": "cleverbot.io key",

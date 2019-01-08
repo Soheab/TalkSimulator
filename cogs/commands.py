@@ -18,7 +18,7 @@ class Commands:
         await message.edit(content=f"Pong   |   {int(ping)}ms")
 
     @commands.command()
-    @commands.check(default.is_admin)
+    @commands.check(default.is_mod)
     async def reset(self, ctx, *, sentence: str):
         """ Reset the bots from an endless loop """
         stats.change_value(startMessage=sentence, reset=True)

@@ -6,7 +6,8 @@ default = {
     "bots": [],
     "started": False,
     "reset": False,
-    "startMessage": ""
+    "startMessage": "",
+    "talked": 0
 }
 
 
