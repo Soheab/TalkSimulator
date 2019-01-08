@@ -18,6 +18,11 @@ class Commands:
         await message.edit(content=f"Pong   |   {int(ping)}ms")
 
     @commands.command()
+    async def source(self, ctx):
+        """ Check out my source code <3 """
+        await ctx.send(f"**{ctx.bot.user}** is powered by this source code:\nhttps://github.com/AlexFlipnote/TalkSimulator")
+
+    @commands.command()
     @commands.check(default.is_mod)
     async def reset(self, ctx, *, sentence: str):
         """ Reset the bots from an endless loop """
