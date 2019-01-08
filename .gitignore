@@ -1,3 +1,7 @@
+# Custom ignore
+config.json
+stats.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

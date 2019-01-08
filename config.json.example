@@ -1,0 +1,14 @@
+{
+  "startMessage": "Message to start with",
+  "channel": CHANNELID:int,
+  "admins": [USERID:int],
+  "API": {
+    "user": "cleverbot.io user",
+    "key": "cleverbot.io key",
+    "nick": "cleverbot.io nick"
+  },
+  "tokens": [
+    "Only use",
+    "two tokens"
+  ]
+}
