@@ -27,8 +27,15 @@ class Commands:
     async def reset(self, ctx, *, sentence: str):
         """ Reset the bots from an endless loop """
         stats.change_value(startMessage=sentence, reset=True)
-        await ctx.send(f"Next message sent in <#{self.config.channel}> "
-                       f"will be:\n```fix\n{sentence}```")
+        await ctx.send(f"Next message sent in <#{self.config.channel}> will be:\n```fix\n{sentence}```")
+
+    @commands.command()
+    @commands.check(default.is_mod)
+    async def forcereset(self, ctx, *, sentence: str):
+        """ Reset the bots when no one even replies """
+        stats.change_value(startMessage=sentence, reset=True)
+        await ctx.send(f"Sending message to <#{self.config.channel}> right now:\n```fix\n{sentence}```")
+        await self.bot.get_channel(self.config.channel).send(sentence)
 
 
 def setup(bot):
