@@ -2,6 +2,7 @@ import os
 import asyncio
 import sys
 
+from datetime import datetime
 from utils import default, stats
 from data import Bot
 
@@ -24,7 +25,7 @@ def prefixer(bot, message):
 
 for g in config.tokens:
     bot = Bot(command_prefix=prefixer, prefix=prefixer, pm_help=True, help_attrs=dict(hidden=True))
-
+    bot.startup = datetime.now()
     for file in os.listdir("cogs"):
         if file.endswith(".py"):
             name = file[:-3]
