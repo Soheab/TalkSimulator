@@ -2,6 +2,7 @@ import asyncio
 import traceback
 
 from utils import default, cleverbot, stats
+from discord.ext import commands
 from discord.ext.commands import errors
 
 config = default.get("config.json")
@@ -19,10 +20,11 @@ async def send_cmd_help(ctx):
         await ctx.send(page)
 
 
-class Events:
+class Events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.Cog.listener()
     async def on_command_error(self, ctx, err):
         if isinstance(err, errors.MissingRequiredArgument) or isinstance(err, errors.BadArgument):
             await send_cmd_help(ctx)
@@ -45,6 +47,7 @@ class Events:
         elif isinstance(err, errors.CommandNotFound):
             pass
 
+    @commands.Cog.listener()
     async def on_ready(self):
         print(f'Ready: {self.bot.user} | Servers: {len(self.bot.guilds)}')
         stats.append_value("bots", self.bot.user.id)
@@ -59,6 +62,7 @@ class Events:
             await self.bot.get_channel(config.channel).send(config.startMessage)
             print("Detected other bot, starting conversation...")
 
+    @commands.Cog.listener()
     async def on_message(self, msg):
         if msg.author.id == self.bot.user.id:
             return

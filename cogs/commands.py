@@ -4,7 +4,7 @@ from discord.ext import commands
 from utils import stats, default
 
 
-class Commands:
+class Commands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = default.get("config.json")
