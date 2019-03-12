@@ -1,13 +1,34 @@
+import datetime
 import time
+import discord
 
 from discord.ext import commands
 from utils import stats, default
 
+def f_time(time):
+    h, r = divmod(int(time.total_seconds()), 3600)
+    m, s = divmod(r, 60)
+    d, h = divmod(h, 24)
+
+    return "%02d:%02d:%02d:%02d" % (d, h, m, s)
 
 class Commands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = default.get("config.json")
+
+    @commands.command()
+    async def stats(self, ctx):
+        """ Shows some basic stats """
+        talked=default.get("stats.json").talked
+        startmsg=default.get("stats.json").startMessage
+        uptime = f_time(datetime.datetime.now() - self.bot.startup)
+        embed = discord.Embed(color=0xbe2f2f,
+                              description='Some basic stats')       
+        embed.add_field(name=u'Messagses send in total', value=talked, inline=True)
+        embed.add_field(name=u'Last message', value=startmsg, inline=False)
+        embed.add_field(name=u'Uptime', value=uptime, inline=True)
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def ping(self, ctx):
@@ -40,3 +61,4 @@ class Commands(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Commands(bot))
+    
