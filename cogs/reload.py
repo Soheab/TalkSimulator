@@ -20,7 +20,7 @@ class Loader(commands.Cog):
     @commands.command()
     @commands.check(default.is_admin)
     async def load(self, ctx, name: str):
-        """ Reloads an extension. """
+        """ Loads an extension. """
         try:
             self.bot.load_extension(f"cogs.{name}")
         except Exception as e:
@@ -30,7 +30,7 @@ class Loader(commands.Cog):
     @commands.command()
     @commands.check(default.is_admin)
     async def unload(self, ctx, name: str):
-        """ Reloads an extension. """
+        """ Unloads an extension. """
         try:
             self.bot.unload_extension(f"cogs.{name}")
         except Exception as e:
