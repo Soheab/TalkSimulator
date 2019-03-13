@@ -1,6 +1,7 @@
 import datetime
 import time
 import discord
+import psutil
 
 from discord.ext import commands
 from utils import stats, default
@@ -15,19 +16,22 @@ def f_time(time):
 class Commands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.process = psutil.Process()
         self.config = default.get("config.json")
 
     @commands.command()
     async def stats(self, ctx):
         """ Shows some basic stats """
-        talked=default.get("stats.json").talked
-        startmsg=default.get("stats.json").startMessage
+        stats=default.get("stats.json")
+        ram = self.process.memory_full_info().rss / 1024**2
         uptime = f_time(datetime.datetime.now() - self.bot.startup)
         embed = discord.Embed(color=0xbe2f2f,
                               description='Some basic stats')       
-        embed.add_field(name=u'Messagses send in total', value=talked, inline=True)
-        embed.add_field(name=u'Last message', value=startmsg, inline=False)
-        embed.add_field(name=u'Uptime', value=uptime, inline=True)
+        embed.add_field(name=u'📤 Messagses send in total', value=stats.talked, inline=False)
+        embed.add_field(name=u'✏ Last message', value=stats.startMessage, inline=False)
+        embed.add_field(name=u'💾 RAM Usage', value=f'{ram:.2f} MB', inline=False)
+        embed.add_field(name=u'🕓 Uptime', value=uptime, inline=False)
+        embed.add_field(name='⏱ Latency', value=f'{round(self.bot.latency * 1000)} ms', inline=False)
         await ctx.send(embed=embed)
 
     @commands.command()
