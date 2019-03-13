@@ -1,7 +1,6 @@
 # Custom ignore
 config.json
 stats.json
-pm2.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
