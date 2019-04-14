@@ -10,7 +10,7 @@ config = default.get("config.json")
 loop = asyncio.get_event_loop()
 tasks = []
 
-if len(config.tokens) is not 2:
+if len(config.tokens) != 2:
     print("Only 2 bot tokens is acceptable at this current time.\n"
           f"You currently have {len(config.tokens)} listed in config.json")
     sys.exit()

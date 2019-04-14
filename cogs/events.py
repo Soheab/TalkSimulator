@@ -1,5 +1,6 @@
 import asyncio
 import traceback
+import time
 
 from utils import default, cleverbot, stats
 from discord.ext import commands
@@ -62,6 +63,12 @@ class Events(commands.Cog):
             await self.bot.get_channel(config.channel).send(config.startMessage)
             print("Detected other bot, starting conversation...")
 
+        while True:
+            await asyncio.sleep(10)
+            data = default.get("stats.json")
+            if (time.time() - data.lastTalked) > 600 and self.bot.user.id == data.bots[0]:
+                await self.bot.get_channel(config.channel).send(data.startMessage)
+
     @commands.Cog.listener()
     async def on_message(self, msg):
         if msg.author.id == self.bot.user.id:
@@ -69,10 +76,12 @@ class Events(commands.Cog):
 
         if msg.channel.id == config.channel and msg.author.bot:
             async with msg.channel.typing():
+                stats.change_value(lastTalked=int(round(time.time())))  # Record when there was last a response
+
                 if default.get("stats.json").reset:
                     print(f"{self.bot.user} detected a reset and has completed it.")
                     stats.change_value(reset=False)
-                    await asyncio.sleep(5)  # Let's keep the typing a bit more realistic huh?
+                    await asyncio.sleep(4)  # Let's keep the typing a bit more realistic huh?
                     return await msg.channel.send(default.get("stats.json").startMessage)
 
                 response = await client.ask(msg.content)

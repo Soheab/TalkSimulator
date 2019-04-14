@@ -1,5 +1,6 @@
 import os
 import json
+import time
 
 filename = "stats.json"
 default = {
@@ -7,11 +8,13 @@ default = {
     "started": False,
     "reset": False,
     "startMessage": "",
-    "talked": 0
+    "talked": 0,
+    "lastTalked": int(round(time.time()))
 }
 
 
 def change_value(**values):
+    """ Change value to a JSON file """
     with open(filename, "r") as jsonFile:
         data = json.load(jsonFile)
 
@@ -23,6 +26,7 @@ def change_value(**values):
 
 
 def append_value(key, addition):
+    """ Append value to a JSON file """
     with open(filename, "r") as jsonFile:
         data = json.load(jsonFile)
 
@@ -32,6 +36,7 @@ def append_value(key, addition):
 
 
 def reset_stats():
+    """ Reset the stats """
     try:
         with open(filename, "r") as jsonFile:
             data = json.load(jsonFile)
