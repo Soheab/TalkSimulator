@@ -26,8 +26,8 @@ class Commands(commands.Cog):
         ram = self.process.memory_full_info().rss / 1024**2
         uptime = f_time(datetime.datetime.now() - self.bot.startup)
         embed = discord.Embed(color=0xbe2f2f,
-                              title=f"**__Some Basic Stats__**")       
-        embed.add_field(name=u'📤 Messagses send in total', value=stats.talked, inline=False)
+                              title=f"ℹ **Some Basic Stats**")       
+        embed.add_field(name=u'📤 Messages send in total', value=stats.talked, inline=False)
         embed.add_field(name=u'✏ Last message', value=stats.startMessage, inline=False)
         embed.add_field(name=u'💾 RAM Usage', value=f'{ram:.2f} MB', inline=False)
         embed.add_field(name=u'🕓 Uptime', value=uptime, inline=False)
